@@ -742,3 +742,88 @@ Required Playwright coverage:
 - if Google test credentials/mock mode is configured, Google login flow is tested
 
 Playwright may reuse authenticated state for multiple tests when appropriate.
+
+## Environment Secret Rules
+
+Factory-generated applications must load secrets from environment variables.
+
+Never hardcode:
+- OPENAI_API_KEY
+- JWT_SECRET
+- GOOGLE_CLIENT_SECRET
+- database passwords
+- API tokens
+
+Environment variables must support:
+- local shell
+- Docker Compose env_file
+- CI/CD secret injection
+
+Generated Docker Compose files should support:
+env_file:
+  - ../../.env
+
+If required secrets are missing:
+- app should fail safely
+- runtime proof should explain missing secret clearly
+- Google login UI should disable gracefully
+
+## Final Autonomous Approval Policy
+
+The factory has exactly ONE required human business approval step:
+
+- planning approval
+
+Flow:
+
+requirement
+→ planning_agent
+→ WAITING_FOR_PLAN_APPROVAL
+→ human approves once
+→ fully autonomous execution
+
+After plan approval:
+- NEVER ask for human approval again
+- NEVER pause for implementation approval
+- NEVER pause for architecture approval
+- NEVER pause for DAG approval
+- NEVER pause for validation approval
+- NEVER pause for repair approval
+- NEVER pause for code quality approval
+- NEVER pause for Docker approval
+- NEVER pause for Playwright approval
+- NEVER pause for runtime proof approval
+- NEVER pause for shell command approval
+- NEVER pause for npm install approval
+- NEVER pause for Maven approval
+- NEVER pause for Docker command approval
+- NEVER pause for process inspection approval
+- NEVER pause for retry approval
+
+Allowed autonomous behavior after plan approval:
+- automatic retries
+- automatic self-healing
+- automatic dependency reinstall
+- automatic Docker rebuild
+- automatic frontend rebuild
+- automatic backend rebuild
+- automatic Playwright reruns
+- automatic runtime redeploy
+- automatic regression testing
+- automatic impact analysis
+- automatic feature delta DAG generation
+- automatic memory persistence
+
+The ONLY valid stop conditions after plan approval are:
+1. unclear requirements
+2. unrecoverable convergence failure
+3. missing mandatory external credentials
+4. hard infrastructure failure outside repair scope
+
+If Codex CLI is not running with:
+approval_policy = "never"
+
+the runtime must warn:
+"Codex CLI is not in full autonomous mode."
+
+ADD_FEATURE and CHANGE_FUNCTIONALITY flows do NOT require additional business approval if the request is clear.
