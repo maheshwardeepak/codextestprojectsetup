@@ -1,0 +1,33 @@
+{
+  "projectName": "MiniTaskFlow",
+  "projectSlug": "minitaskflow",
+  "classification": "NEW_PROJECT",
+  "approvalType": "PLAN_APPROVAL",
+  "status": "PLAN_APPROVED",
+  "createdAt": "2026-05-18T07:22:06Z",
+  "planMarkdownPath": "workflow/plans/minitaskflow.plan.md",
+  "planJsonPath": "workflow/plans/minitaskflow.plan.json",
+  "humanApprovalRequired": false,
+  "approved": true,
+  "approvedAt": "2026-05-18T07:35:10Z",
+  "approvedBy": "human",
+  "decision": "approved",
+  "allowedHumanActions": [
+    "approve_plan",
+    "edit_plan"
+  ],
+  "stopReason": "Plan approved by human. Post-approval autonomous workflow is cleared to continue with architecture_agent, but no architecture, DAG, application code, or Docker deployment was started by this update.",
+  "afterApproval": {
+    "nextAgent": "architecture_agent",
+    "runsAutomatically": true,
+    "additionalHumanBusinessApprovals": false
+  },
+  "blockedUntil": null,
+  "mustNotProceedBeforeApproval": [
+    "architecture",
+    "architecture-contract.json",
+    "DAG",
+    "application code",
+    "Docker deployment"
+  ]
+}

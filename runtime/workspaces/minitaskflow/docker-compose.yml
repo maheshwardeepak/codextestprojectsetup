@@ -1,0 +1,58 @@
+name: minitaskflow
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: minitaskflow
+      POSTGRES_USER: minitaskflow
+      POSTGRES_PASSWORD: ${MINITASKFLOW_POSTGRES_PASSWORD:?MINITASKFLOW_POSTGRES_PASSWORD is required}
+    ports:
+      - "${MINITASKFLOW_POSTGRES_PORT:-55432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U minitaskflow -d minitaskflow"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - minitaskflow-postgres-data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      SERVER_PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/minitaskflow
+      SPRING_DATASOURCE_USERNAME: minitaskflow
+      SPRING_DATASOURCE_PASSWORD: ${MINITASKFLOW_POSTGRES_PASSWORD:?MINITASKFLOW_POSTGRES_PASSWORD is required}
+      JWT_SECRET: ${MINITASKFLOW_JWT_SECRET:?MINITASKFLOW_JWT_SECRET is required}
+      JWT_ISSUER: minitaskflow
+      JWT_EXPIRATION: PT12H
+      FRONTEND_ORIGIN: http://localhost:${MINITASKFLOW_FRONTEND_PORT:-15000}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CSRF_TOKEN: ${GOOGLE_CSRF_TOKEN:-}
+    ports:
+      - "${MINITASKFLOW_BACKEND_PORT:-18080}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/api/health | grep -q UP"]
+      interval: 10s
+      timeout: 3s
+      retries: 18
+
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      API_BASE_URL: http://localhost:${MINITASKFLOW_BACKEND_PORT:-18080}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+    ports:
+      - "${MINITASKFLOW_FRONTEND_PORT:-15000}:80"
+    depends_on:
+      backend:
+        condition: service_started
+
+volumes:
+  minitaskflow-postgres-data:

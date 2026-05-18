@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-05-18T07:18:56Z",
+  "projectName": "MiniTaskFlow",
+  "projectSlug": "minitaskflow",
+  "classification": "NEW_PROJECT",
+  "confidence": 0.99,
+  "rationale": "The request asks to build a new application named MiniTaskFlow with specified backend, frontend, database, auth, Docker, Playwright, modules, and required behavior. It does not refer to an existing completed project feature addition or a correction to existing behavior.",
+  "requirement": "Build a small enterprise task management app for local Docker validation.",
+  "technology": [
+    "Spring Boot Java 21 backend",
+    "React + Vite frontend",
+    "PostgreSQL",
+    "JWT auth",
+    "npm",
+    "Docker Compose runtime",
+    "Playwright E2E"
+  ],
+  "requiredModules": [
+    "users",
+    "auth",
+    "projects",
+    "tasks",
+    "dashboard",
+    "health check endpoint"
+  ],
+  "requiredBehavior": [
+    "register/login",
+    "create project",
+    "create tasks in project",
+    "mark task completed",
+    "dashboard counts",
+    "/api/health",
+    "frontend loads in browser"
+  ],
+  "constraints": [
+    "Return only classification, confidence, and rationale.",
+    "Do not create architecture, DAG, or code."
+  ],
+  "status": "CLASSIFIED_ONLY"
+}

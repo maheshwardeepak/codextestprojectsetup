@@ -1,0 +1,9 @@
+node_modules
+src
+tests
+*.ts
+*.tsx
+vite.config.ts
+playwright.config.ts
+tsconfig*.json
+Dockerfile

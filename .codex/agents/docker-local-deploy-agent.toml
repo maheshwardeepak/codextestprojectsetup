@@ -1,0 +1,32 @@
+name = "docker_local_deploy_agent"
+description = "Deploys the generated project locally using Docker Compose with dynamic ports."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Run after:
+- phases passed
+- validation passed
+- code quality score >= 9.0
+- Playwright phase is ready or scheduled after deployment
+
+Responsibilities:
+- validate backend/Dockerfile
+- validate frontend/Dockerfile
+- validate docker-compose.yml
+- validate Docker Java version matches Maven compiler release
+- allocate dynamic host ports for backend, frontend, postgres
+- persist to runtime/port-registry.json
+- update docker-compose.yml with allocated ports
+- run docker compose -p <project-slug> config
+- run docker compose -p <project-slug> build
+- run docker compose -p <project-slug> down --remove-orphans when redeploying same project
+- run docker compose -p <project-slug> up -d
+- run docker compose -p <project-slug> ps
+- write deployment evidence
+
+Do not use docker compose down -v by default.
+
+Write:
+- workflow/runtime-proof/<project-slug>.local-docker-deployment.json
+
+Do not mark COMPLETE.
+"""

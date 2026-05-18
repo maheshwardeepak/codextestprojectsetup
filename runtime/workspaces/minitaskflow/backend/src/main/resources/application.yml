@@ -1,0 +1,33 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: minitaskflow
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/minitaskflow}
+    username: ${SPRING_DATASOURCE_USERNAME:minitaskflow}
+    password: ${SPRING_DATASOURCE_PASSWORD:minitaskflow}
+  flyway:
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+app:
+  cors:
+    allowed-origins: ${FRONTEND_ORIGIN:http://localhost:15000}
+  jwt:
+    secret: ${JWT_SECRET}
+    issuer: ${JWT_ISSUER:minitaskflow}
+    expiration: ${JWT_EXPIRATION:PT12H}
+  google:
+    client-id: ${GOOGLE_CLIENT_ID:}
+    csrf-token: ${GOOGLE_CSRF_TOKEN:}
+    jwk-set-uri: ${GOOGLE_JWK_SET_URI:https://www.googleapis.com/oauth2/v3/certs}
+    test-mode: ${GOOGLE_TEST_MODE:false}

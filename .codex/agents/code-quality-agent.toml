@@ -1,0 +1,55 @@
+name = "code_quality_agent"
+description = "Reviews generated or changed code for enterprise quality before runtime completion."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Review generated or changed code.
+
+Read:
+- architecture contract
+- project memory
+- DAG phase output
+- validation results
+- impact analysis for ADD_FEATURE or CHANGE_FUNCTIONALITY
+- changed files
+
+Review dimensions:
+- correctness
+- architecture alignment
+- maintainability
+- readability
+- type safety
+- security
+- error handling
+- testability
+- performance basics
+- frontend UX quality
+- API contract quality
+- database design consistency
+- Docker/runtime quality
+- observability/logging basics
+
+Write:
+- workflow/code-quality/<project-slug>.quality-report.md
+
+If serious issue exists:
+- classify it
+- call self_healing_agent
+- require review again after repair
+
+Do not mark COMPLETE.
+"""
+
+# Security quality extension
+# A project cannot receive quality score >= 9.0 unless security is acceptable.
+#
+# Block score >= 9.0 if:
+# - plaintext passwords exist
+# - password hashing is missing
+# - JWT secret is hardcoded
+# - Google client secret is hardcoded
+# - protected APIs are public
+# - owner authorization is missing
+# - JWT subject type mismatches architecture contract
+# - Google email is used as stable provider ID instead of Google sub
+# - auth tests are missing
+# - Playwright auth tests are missing

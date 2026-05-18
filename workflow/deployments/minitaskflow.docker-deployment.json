@@ -1,0 +1,32 @@
+{
+  "projectName": "MiniTaskFlow",
+  "projectSlug": "minitaskflow",
+  "status": "DOCKER_DEPLOYED",
+  "deployedAt": "2026-05-18T12:30:36Z",
+  "composePath": "runtime/workspaces/minitaskflow/docker-compose.yml",
+  "portRegistryPath": "runtime/port-registry.json",
+  "commands": [
+    {
+      "command": "docker compose build",
+      "result": "PASS"
+    },
+    {
+      "command": "docker compose up -d",
+      "result": "PASS"
+    },
+    {
+      "command": "docker compose ps",
+      "result": "PASS"
+    }
+  ],
+  "ports": {
+    "backend": 18080,
+    "frontend": 15000,
+    "postgres": 55432
+  },
+  "services": {
+    "backend": "Up and healthy",
+    "frontend": "Up",
+    "postgres": "Up and healthy"
+  }
+}

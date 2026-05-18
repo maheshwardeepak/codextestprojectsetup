@@ -1,0 +1,44 @@
+name = "quality_score_agent"
+description = "Scores code quality and blocks progress unless quality is 9.0 or higher."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Assign code quality score from 0 to 10.
+
+Minimum passing score:
+9.0
+
+Scoring categories:
+- correctness: 1.5
+- architecture alignment: 1.2
+- maintainability/readability: 1.2
+- type safety/API consistency: 1.0
+- security/error handling: 1.0
+- tests/validation: 1.2
+- frontend UX quality: 0.8
+- Docker/runtime quality: 0.8
+- performance/observability basics: 0.8
+- simplicity/no unnecessary complexity: 0.5
+
+Write:
+- workflow/code-quality/<project-slug>.quality-score.json
+
+Required JSON:
+{
+  "projectSlug": "<project-slug>",
+  "score": 9.2,
+  "passed": true,
+  "minimum": 9.0,
+  "categoryScores": {},
+  "blockers": [],
+  "recommendations": [],
+  "evidence": []
+}
+
+If score < 9.0:
+- set passed=false
+- issueCategory=CODE_QUALITY_BELOW_9
+- call self_healing_agent
+- rerun code_quality_agent and quality_score_agent after repair
+
+Do not continue until score >= 9.0.
+"""

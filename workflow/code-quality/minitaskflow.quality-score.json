@@ -1,0 +1,30 @@
+{
+  "projectName": "MiniTaskFlow",
+  "projectSlug": "minitaskflow",
+  "lifecycleCase": "NEW_PROJECT",
+  "status": "QUALITY_PASSED",
+  "generatedAt": "2026-05-18T12:29:19Z",
+  "score": 9.2,
+  "minimumRequiredScore": 9.0,
+  "evidence": {
+    "backendValidation": "mvn test passed with 6 tests",
+    "backendPackage": "mvn package -DskipTests passed",
+    "frontendInstall": "npm install passed with 0 vulnerabilities",
+    "frontendBuild": "npm run build passed",
+    "dockerComposeConfig": "docker compose config passed"
+  },
+  "security": {
+    "passwordHashing": "PASS",
+    "jwtSecretHandling": "PASS",
+    "jwtClaims": "PASS",
+    "googleIdentityUsesSub": "PASS",
+    "protectedApis": "PASS",
+    "ownerAuthorization": "PASS",
+    "corsConfiguredOrigin": "PASS",
+    "authTests": "PASS"
+  },
+  "notes": [
+    "Real Google credentials are intentionally absent for local runtime proof; UI exposes a safe disabled/configuration-required state.",
+    "Playwright execution is still required after Docker deployment before COMPLETE."
+  ]
+}

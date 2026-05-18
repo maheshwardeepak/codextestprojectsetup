@@ -1,0 +1,92 @@
+{
+  "projectName": "MiniTaskFlow",
+  "projectSlug": "minitaskflow",
+  "status": "ARCHITECTURE_CREATED",
+  "createdAt": "2026-05-18T09:25:55Z",
+  "architectureContractPath": "runtime/workspaces/minitaskflow/architecture-contract.json",
+  "contract": {
+    "userIdType": "Long",
+    "javaVersion": 21,
+    "packageManager": "npm",
+    "database": "postgres",
+    "authStrategy": "jwt"
+  },
+  "services": [
+    {
+      "name": "backend",
+      "technology": "Spring Boot",
+      "javaVersion": 21,
+      "buildTool": "Maven",
+      "responsibilities": [
+        "JWT authentication",
+        "Users API",
+        "Projects API",
+        "Tasks API",
+        "Dashboard API",
+        "Health endpoint"
+      ]
+    },
+    {
+      "name": "frontend",
+      "technology": "React + Vite",
+      "packageManager": "npm",
+      "responsibilities": [
+        "Authentication UI",
+        "Dashboard UI",
+        "Projects UI",
+        "Task management UI"
+      ]
+    },
+    {
+      "name": "postgres",
+      "technology": "PostgreSQL",
+      "responsibilities": [
+        "Persistent users, projects, and tasks data"
+      ]
+    }
+  ],
+  "apiSurfaces": [
+    "POST /api/auth/register",
+    "POST /api/auth/login",
+    "GET /api/users/me",
+    "GET /api/projects",
+    "POST /api/projects",
+    "GET /api/projects/{projectId}/tasks",
+    "POST /api/projects/{projectId}/tasks",
+    "PATCH /api/tasks/{taskId}/complete",
+    "GET /api/dashboard/summary",
+    "GET /api/health"
+  ],
+  "entities": [
+    {
+      "name": "User",
+      "idType": "Long"
+    },
+    {
+      "name": "Project",
+      "idType": "Long"
+    },
+    {
+      "name": "Task",
+      "idType": "Long"
+    }
+  ],
+  "dynamicPorts": {
+    "registryPath": "runtime/port-registry.json",
+    "backend": "18080-18999",
+    "frontend": "15000-15999",
+    "postgres": "55432-55999"
+  },
+  "validation": {
+    "backend": "mvn test",
+    "frontend": "npm install && npm run build",
+    "docker": "docker compose config && docker compose build && docker compose up -d",
+    "playwright": "npx playwright test --workers=1",
+    "runtimeProof": [
+      "backend health responds",
+      "frontend URL responds",
+      "quality score >= 9.0",
+      "Playwright passes"
+    ]
+  }
+}

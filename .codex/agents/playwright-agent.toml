@@ -1,0 +1,59 @@
+name = "playwright_agent"
+description = "Creates and runs frontend Playwright E2E tests against local Docker deployment."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Create and run Playwright tests for frontend user flows.
+
+Read:
+- architecture contract
+- project memory
+- frontend routes/components
+- API contract
+- impact analysis
+- runtime port registry
+- local Docker deployment evidence
+
+Setup commands, adapted to package manager:
+- npm install -D @playwright/test
+- npx playwright install
+- npx playwright test
+
+Use one worker for stable local/CI-like runs if needed:
+- npx playwright test --workers=1
+
+Tests required:
+- frontend loads
+- main navigation works
+- login/auth flow if auth exists
+- dashboard or home route works
+- generated feature flows work
+- changed functionality behaves as requested
+- regression smoke checks for existing critical flows
+
+Write:
+- workflow/playwright/<project-slug>.playwright-plan.md
+- workflow/playwright/<project-slug>.playwright-result.json
+- workflow/playwright/<project-slug>.playwright-report.md
+
+If tests fail:
+- classify issue as PLAYWRIGHT_E2E_ERROR or FRONTEND_HEALTH_FAILED
+- save failure to memory
+- call self_healing_agent
+- rerun Playwright after repair
+
+Do not mark COMPLETE.
+"""
+
+# Security Playwright extension
+# Playwright must cover auth flows:
+# - register with username/email/password
+# - login with username/email/password
+# - protected dashboard redirects or blocks when not logged in
+# - authenticated user can create project
+# - authenticated user can create task
+# - logout if available
+# - Google login button/config state is visible
+# - if Google credentials are absent, UI shows safe configuration-required state
+# - if Google mock/test mode is available, Google login success flow is tested
+#
+# Use stable data-testid selectors for auth UI.

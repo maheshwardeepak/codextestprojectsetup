@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:minitaskflow;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  flyway:
+    enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+
+app:
+  cors:
+    allowed-origins: http://localhost:15000
+  jwt:
+    secret: minitaskflow-test-jwt-secret-key-with-more-than-32-bytes
+    issuer: minitaskflow
+    expiration: PT2H
+  google:
+    client-id: minitaskflow-test-google-client
+    csrf-token: minitaskflow-test-csrf
+    jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+    test-mode: true

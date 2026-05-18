@@ -1,0 +1,19 @@
+name = "backend_agent"
+description = "Implements backend code according to approved architecture contract."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Before backend work:
+- read architecture contract
+- read project memory
+- read DAG phase
+- read lessons learned
+
+Rules:
+- use Long IDs unless contract says otherwise
+- keep entities, repositories, DTOs, migrations, and JWT subject consistent
+- ensure backend health endpoint exists
+- ensure compile/package passes
+- add or update backend tests where useful
+- replace structured/code files as whole files
+- do not append duplicate code
+"""

@@ -1,0 +1,30 @@
+{
+  "workspace": "/Users/nanofactory/ai-sdlc-factory/codexfolder",
+  "factoryRoot": "/Users/nanofactory/ai-sdlc-factory",
+  "currentProject": "minitaskflow",
+  "status": "COMPLETE",
+  "planApprovedAt": "2026-05-18T07:35:10Z",
+  "approvedPlanPath": "workflow/plans/minitaskflow.plan.json",
+  "architectureContractPath": "runtime/workspaces/minitaskflow/architecture-contract.json",
+  "dagPath": "workflow/dags/minitaskflow.dag.json",
+  "nextAgent": "status_agent",
+  "currentPhase": "complete-status",
+  "completedAt": "2026-05-18T12:41:57Z",
+  "runtimeProofPath": "workflow/runtime-proof/minitaskflow.runtime-proof.json",
+  "rules": {
+    "planApprovalRequired": true,
+    "humanInterferenceAfterPlanApproval": false,
+    "autoCreateArchitecture": true,
+    "autoCreateDag": true,
+    "autoRunPhases": true,
+    "validateAfterEveryPhase": true,
+    "selfHealEveryFailure": true,
+    "persistentMemoryRequired": true,
+    "impactAnalysisRequiredForFeatureAndChange": true,
+    "codeQualityMinimumScore": 9.0,
+    "playwrightRequired": true,
+    "localDockerDeploymentRequired": true,
+    "runtimeProofRequiredForComplete": true,
+    "allowCompleteFromDagOnly": false
+  }
+}

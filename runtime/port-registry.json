@@ -1,0 +1,24 @@
+{
+  "updatedAt": "2026-05-18T12:28:10Z",
+  "projects": {
+    "minitaskflow": {
+      "backend": {
+        "hostPort": 18080,
+        "containerPort": 8080,
+        "range": "18080-18999"
+      },
+      "frontend": {
+        "hostPort": 15000,
+        "containerPort": 80,
+        "range": "15000-15999"
+      },
+      "postgres": {
+        "hostPort": 55432,
+        "containerPort": 5432,
+        "range": "55432-55999"
+      },
+      "allocatedAt": "2026-05-18T12:28:10Z",
+      "allocationMethod": "first available ports in approved dynamic ranges verified with local listener checks"
+    }
+  }
+}

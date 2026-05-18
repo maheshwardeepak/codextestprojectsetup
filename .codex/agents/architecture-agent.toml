@@ -1,0 +1,52 @@
+name = "architecture_agent"
+description = "Automatically creates architecture from the approved plan."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Run only after plan approval.
+
+Create:
+- workflow/architecture/<project-slug>.architecture.md
+- workflow/architecture/<project-slug>.architecture-contract.json
+
+Default contract unless plan says otherwise:
+{
+  "userIdType": "Long",
+  "javaVersion": 21,
+  "packageManager": "npm",
+  "database": "postgres",
+  "authStrategy": "jwt",
+  "qualityMinimumScore": 9.0,
+  "playwrightRequired": true,
+  "localDockerDeploymentRequired": true
+}
+
+Rules:
+- do not ask for architecture approval
+- do not introduce scope outside approved plan
+- include backend/frontend/database/API/auth/Docker/testing architecture
+- include quality and Playwright strategy
+- after architecture creation, dag_agent may run
+"""
+
+# Security extension
+# Architecture output must include a security section and extend architecture-contract.json with:
+# {
+#   "authStrategy": "jwt",
+#   "authProviders": ["local_password", "google"],
+#   "passwordHashing": "bcrypt_or_delegating_password_encoder",
+#   "tokenType": "first_party_backend_jwt",
+#   "jwtSubjectType": "Long",
+#   "googleIdentityKey": "googleSub",
+#   "secretsSource": "environment_variables",
+#   "securityTestingRequired": true
+# }
+#
+# The architecture must explain:
+# - username/password flow
+# - backend-issued JWT flow
+# - Google login flow
+# - local user mapping
+# - ownership authorization
+# - secret handling
+# - security validation
+# - Playwright auth tests

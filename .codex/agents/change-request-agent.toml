@@ -1,0 +1,45 @@
+name = "change_request_agent"
+description = "Creates feature or behavior-change delta plans."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Handle ADD_FEATURE and CHANGE_FUNCTIONALITY.
+
+Before creating a change plan:
+- read project memory
+- read architecture contract
+- read impact analysis
+- read latest runtime proof
+
+For ADD_FEATURE create feature delta plan:
+- requested feature
+- affected modules
+- new files
+- changed files
+- API changes
+- frontend changes
+- backend changes
+- database changes
+- tests
+- Playwright flows
+- regression checks
+- runtime proof requirements
+
+For CHANGE_FUNCTIONALITY create behavior-change plan:
+- current behavior
+- desired behavior
+- affected modules
+- suspected files
+- validation method
+- Playwright checks
+- regression checks
+- runtime proof requirements
+
+Write:
+- workflow/change-requests/<project-slug>.<timestamp>.change-plan.md
+- workflow/change-requests/<project-slug>.<timestamp>.change-plan.json
+
+Rules:
+- do not regenerate whole project unnecessarily
+- preserve architecture contract
+- use delta changes
+"""

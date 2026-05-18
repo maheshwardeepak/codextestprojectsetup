@@ -1,0 +1,262 @@
+{
+  "projectName": "MiniTaskFlow",
+  "projectSlug": "minitaskflow",
+  "classification": "NEW_PROJECT",
+  "status": "PLAN_APPROVED",
+  "createdAt": "2026-05-18T07:22:06Z",
+  "approvedAt": "2026-05-18T07:35:10Z",
+  "planMarkdownPath": "workflow/plans/minitaskflow.plan.md",
+  "approvalPath": "workflow/approvals/minitaskflow.approval.json",
+  "approvalStatus": "PLAN_APPROVED",
+  "productSummary": "MiniTaskFlow is a small enterprise task management application for local Docker validation with JWT-secured user access, projects, tasks, dashboard counts, a backend health endpoint, and a browser-loadable frontend.",
+  "scope": {
+    "inScope": [
+      "User registration and login",
+      "Authenticated project creation and listing",
+      "Task creation within a project",
+      "Marking tasks as completed",
+      "Dashboard counts for projects and tasks",
+      "Backend health endpoint at /api/health",
+      "React + Vite frontend for core workflows",
+      "PostgreSQL persistence",
+      "Docker Compose local runtime validation",
+      "Playwright E2E coverage"
+    ],
+    "outOfScope": [
+      "Multi-tenant organizations",
+      "Admin console",
+      "Email notifications",
+      "File attachments",
+      "Comments, labels, due dates, and task assignment",
+      "External OAuth or SSO",
+      "Production cloud deployment"
+    ]
+  },
+  "rolesUsers": [
+    {
+      "role": "Unauthenticated visitor",
+      "capabilities": [
+        "Register",
+        "Log in"
+      ]
+    },
+    {
+      "role": "Authenticated user",
+      "capabilities": [
+        "Manage own projects",
+        "Manage own tasks",
+        "View dashboard counts",
+        "Log out"
+      ]
+    },
+    {
+      "role": "Runtime operator",
+      "capabilities": [
+        "Validate backend health",
+        "Inspect Docker Compose state",
+        "Review quality and Playwright results"
+      ]
+    }
+  ],
+  "modules": [
+    "users",
+    "auth",
+    "projects",
+    "tasks",
+    "dashboard",
+    "health check endpoint"
+  ],
+  "features": [
+    "Secure registration and login",
+    "JWT-protected API requests",
+    "Project create/list experience",
+    "Task create/list/complete experience",
+    "Dashboard summary counts",
+    "Health endpoint for runtime proof",
+    "Basic loading, empty, error, and validation states"
+  ],
+  "userFlows": [
+    "Visitor registers with valid credentials and can access the app.",
+    "Registered user logs in and receives a JWT-backed session.",
+    "Authenticated user creates a project and sees it in the project list.",
+    "Authenticated user opens a project, creates a task, and sees the task inside that project.",
+    "Authenticated user marks a task as completed and sees the completed state reflected in the UI.",
+    "Authenticated user views dashboard project and task counts.",
+    "Runtime operator calls /api/health and receives a successful response.",
+    "Browser opens frontend URL and the app renders successfully."
+  ],
+  "backendRequirements": {
+    "technology": "Spring Boot Java 21",
+    "authStrategy": "JWT",
+    "requirements": [
+      "Secure password hashing",
+      "Protected project, task, dashboard, and user surfaces",
+      "Stable DTO contracts for frontend consumption",
+      "Authenticated data scoped to current user",
+      "Unauthenticated GET /api/health"
+    ],
+    "plannedApiSurfaces": [
+      "POST /api/auth/register",
+      "POST /api/auth/login",
+      "GET /api/users/me",
+      "GET /api/projects",
+      "POST /api/projects",
+      "GET /api/projects/{projectId}/tasks",
+      "POST /api/projects/{projectId}/tasks",
+      "PATCH /api/tasks/{taskId}/complete",
+      "GET /api/dashboard/summary",
+      "GET /api/health"
+    ]
+  },
+  "frontendRequirements": {
+    "technology": "React + Vite",
+    "packageManager": "npm",
+    "requirements": [
+      "Screens for login, registration, dashboard, projects, and project tasks",
+      "JWT stored and sent for protected API calls",
+      "Project and task form validation",
+      "User-readable loading, empty, and error states",
+      "Dashboard project, total task, and completed task counts",
+      "Successful production build and Docker runtime load"
+    ]
+  },
+  "databaseRequirements": {
+    "database": "PostgreSQL",
+    "entities": [
+      "User",
+      "Project",
+      "Task",
+      "Dashboard summary derived from project and task data"
+    ],
+    "requirements": [
+      "Persist users, projects, and tasks with ownership relationships",
+      "Reproducible migrations in local Docker runtime",
+      "Prevent cross-user access to projects and tasks",
+      "Environment-driven database configuration"
+    ]
+  },
+  "dockerRuntimeRequirements": {
+    "runtime": "Docker Compose",
+    "services": [
+      "backend",
+      "frontend",
+      "postgres"
+    ],
+    "dynamicPorts": {
+      "registryPath": "runtime/port-registry.json",
+      "ranges": {
+        "backend": "18080-18999",
+        "frontend": "15000-15999",
+        "postgres": "55432-55999"
+      }
+    },
+    "requirements": [
+      "docker compose config passes",
+      "docker compose build passes",
+      "docker compose up succeeds",
+      "backend health responds",
+      "frontend URL responds"
+    ]
+  },
+  "qualityRequirements": {
+    "minimumScore": 9.0,
+    "reviewAreas": [
+      "correctness",
+      "architecture alignment",
+      "maintainability",
+      "readability",
+      "type safety",
+      "security",
+      "error handling",
+      "testability",
+      "performance basics",
+      "frontend UX quality",
+      "API contract cleanliness",
+      "database design consistency",
+      "Docker/runtime quality",
+      "observability/logging basics"
+    ],
+    "evidence": [
+      "backend compile/test results",
+      "frontend install/build/test results where available",
+      "Playwright results",
+      "code review report",
+      "security notes",
+      "maintainability notes"
+    ]
+  },
+  "playwrightTestingRequirements": {
+    "required": true,
+    "runTarget": "local Docker deployment URL",
+    "coverage": [
+      "frontend smoke load",
+      "registration",
+      "login",
+      "project creation",
+      "task creation inside a project",
+      "mark task completed",
+      "dashboard count verification"
+    ],
+    "stability": "Use one worker when needed for stable CI-like execution."
+  },
+  "validationGates": [
+    "Plan approval is the only human business gate.",
+    "Architecture and DAG are created only after explicit plan approval.",
+    "Validation runs after every generated phase.",
+    "Backend phases must pass compile/package and tests when present.",
+    "Frontend phases must pass npm install, type checks where configured, tests where present, and build.",
+    "Docker phases must pass Dockerfile checks, Docker Compose config, build, up, and service health.",
+    "Quality phase must pass score >= 9.0.",
+    "Playwright phase must pass against the Docker runtime URL.",
+    "COMPLETE status is allowed only after runtime proof passes."
+  ],
+  "acceptanceCriteria": [
+    "Human explicitly approves this plan, or edits it before approval.",
+    "No architecture, DAG, or application code exists as a result of this planning step.",
+    "After approval, the generated app allows a user to register and log in.",
+    "An authenticated user can create a project.",
+    "An authenticated user can create a task inside a project.",
+    "An authenticated user can mark a task as completed.",
+    "Dashboard shows correct project, total task, and completed task counts for the authenticated user.",
+    "GET /api/health returns a successful backend health response.",
+    "Frontend loads successfully in a browser from the Docker runtime URL.",
+    "Backend compile/package passes.",
+    "Frontend install/build passes.",
+    "PostgreSQL migrations apply cleanly.",
+    "Docker Compose config, build, and up pass using dynamic host ports.",
+    "Playwright E2E tests pass against the Docker runtime URL.",
+    "Code quality score is at least 9.0 / 10.",
+    "Runtime proof passes before status can become COMPLETE."
+  ],
+  "risks": [
+    "JWT subject type or user ID type mismatch between auth, DTOs, and persistence.",
+    "API contract drift between Spring Boot DTOs and React client types.",
+    "Incorrect ownership checks could expose projects or tasks across users.",
+    "Dashboard counts could be wrong if task completion filtering is inconsistent.",
+    "Docker host port collisions if dynamic allocation is not applied correctly.",
+    "Frontend runtime environment variables could point to the wrong backend URL.",
+    "Playwright tests may be flaky if auth state, timing, or Docker startup readiness is not handled carefully."
+  ],
+  "phaseList": [
+    "Autonomous architecture creation and architecture contract generation",
+    "Autonomous phase DAG creation",
+    "Backend and frontend project scaffold generation",
+    "Auth and users implementation",
+    "Projects and tasks implementation",
+    "Dashboard and health endpoint implementation",
+    "Validation and self-healing after each phase",
+    "Code quality review and score gate",
+    "Playwright test creation and execution",
+    "Docker Compose local deployment",
+    "Runtime proof for backend health, frontend load, and integrated Docker runtime",
+    "Final status update to COMPLETE only after runtime proof passes"
+  ],
+  "postApprovalAutonomousWorkflowSummary": "After explicit human plan approval, architecture_agent runs automatically, followed by dag_agent, autonomous phase execution, validation after every phase, self-healing on failures, quality score enforcement, Playwright testing, Docker Compose deployment, runtime proof, memory updates, and final completion status. No architecture, phase, validation, repair, code quality, Playwright, Docker, or runtime proof approval will be requested after plan approval.",
+  "deferredUntilApproval": [
+    "architecture",
+    "architecture-contract.json",
+    "DAG",
+    "application code",
+    "Docker deployment"
+  ]
+}

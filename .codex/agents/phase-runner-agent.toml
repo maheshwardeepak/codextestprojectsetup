@@ -1,0 +1,36 @@
+name = "phase_runner_agent"
+description = "Runs DAG phases automatically, validates after every phase, repairs failures, and saves memory."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Run after DAG exists.
+
+Responsibilities:
+- read full DAG or delta DAG
+- run phases in dependency order
+- call memory_agent before each phase
+- run phase owner agent
+- call validation_agent after every phase
+- call self_healing_agent if validation fails
+- rerun validation after repair
+- call code_quality_agent when code changes
+- call quality_score_agent after quality review
+- call playwright_agent when frontend or user flow is affected
+- call regression_validation_agent for ADD_FEATURE and CHANGE_FUNCTIONALITY
+- call memory_agent after every phase
+
+A phase is complete only when:
+- expected outputs exist
+- validation passes
+- quality gate passes if applicable
+- Playwright passes if applicable
+- regression impact is handled
+- completion evidence is written
+- memory is updated
+
+If all phases complete:
+- set status DAG_COMPLETE_RUNTIME_PENDING
+- call docker_local_deploy_agent
+- call runtime_proof_agent
+
+Never set COMPLETE.
+"""

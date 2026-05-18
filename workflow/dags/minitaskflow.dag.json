@@ -1,0 +1,131 @@
+{
+  "projectName": "MiniTaskFlow",
+  "projectSlug": "minitaskflow",
+  "status": "DAG_CREATED",
+  "createdAt": "2026-05-18T09:25:55Z",
+  "architectureContractPath": "runtime/workspaces/minitaskflow/architecture-contract.json",
+  "nodes": [
+    {
+      "id": "architecture-created",
+      "dependsOn": [],
+      "validation": [
+        "architecture contract exists",
+        "architecture contract matches default enterprise contract"
+      ]
+    },
+    {
+      "id": "backend-scaffold",
+      "dependsOn": [
+        "architecture-created"
+      ],
+      "validation": [
+        "mvn test"
+      ]
+    },
+    {
+      "id": "backend-auth-users",
+      "dependsOn": [
+        "backend-scaffold"
+      ],
+      "validation": [
+        "mvn test"
+      ]
+    },
+    {
+      "id": "backend-projects-tasks-dashboard",
+      "dependsOn": [
+        "backend-auth-users"
+      ],
+      "validation": [
+        "mvn test"
+      ]
+    },
+    {
+      "id": "frontend-app",
+      "dependsOn": [
+        "backend-projects-tasks-dashboard"
+      ],
+      "validation": [
+        "npm install",
+        "npm run build"
+      ]
+    },
+    {
+      "id": "docker-runtime",
+      "dependsOn": [
+        "frontend-app"
+      ],
+      "validation": [
+        "docker compose config"
+      ]
+    },
+    {
+      "id": "quality-gate",
+      "dependsOn": [
+        "docker-runtime"
+      ],
+      "validation": [
+        "quality score >= 9.0"
+      ]
+    },
+    {
+      "id": "docker-deploy",
+      "dependsOn": [
+        "quality-gate"
+      ],
+      "validation": [
+        "docker compose build",
+        "docker compose up -d",
+        "docker compose ps"
+      ]
+    },
+    {
+      "id": "playwright-e2e",
+      "dependsOn": [
+        "docker-deploy"
+      ],
+      "validation": [
+        "npx playwright test --workers=1"
+      ]
+    },
+    {
+      "id": "runtime-proof",
+      "dependsOn": [
+        "playwright-e2e"
+      ],
+      "validation": [
+        "backend health endpoint responds",
+        "frontend URL responds",
+        "quality score >= 9.0",
+        "Playwright result passed"
+      ]
+    },
+    {
+      "id": "complete-status",
+      "dependsOn": [
+        "runtime-proof"
+      ],
+      "validation": [
+        "status can be COMPLETE only after runtime proof"
+      ]
+    }
+  ],
+  "selfHealing": {
+    "enabled": true,
+    "maxAttemptsPerFailure": 3,
+    "categories": [
+      "BACKEND_COMPILE_ERROR",
+      "BACKEND_TEST_ERROR",
+      "FRONTEND_BUILD_ERROR",
+      "FRONTEND_TEST_ERROR",
+      "PLAYWRIGHT_E2E_ERROR",
+      "DOCKER_COMPOSE_CONFIG_ERROR",
+      "DOCKER_BUILD_ERROR",
+      "DOCKER_RUNTIME_ERROR",
+      "BACKEND_HEALTH_FAILED",
+      "FRONTEND_HEALTH_FAILED",
+      "CODE_QUALITY_BELOW_9",
+      "UNKNOWN_REPAIRABLE_ERROR"
+    ]
+  }
+}

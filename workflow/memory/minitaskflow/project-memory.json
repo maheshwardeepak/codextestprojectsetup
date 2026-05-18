@@ -1,0 +1,451 @@
+{
+  "projectName": "MiniTaskFlow",
+  "projectSlug": "minitaskflow",
+  "lifecycleCase": "NEW_PROJECT",
+  "status": "COMPLETE",
+  "createdAt": "2026-05-18T07:17:28Z",
+  "updatedAt": "2026-05-18T12:41:57Z",
+  "approvedPlanPath": "workflow/plans/minitaskflow.plan.json",
+  "architectureContractPath": "runtime/workspaces/minitaskflow/architecture-contract.json",
+  "currentPlan": {
+    "createdAt": "2026-05-18T07:22:06Z",
+    "status": "PLAN_APPROVED",
+    "approvedAt": "2026-05-18T07:35:10Z",
+    "planMarkdownPath": "workflow/plans/minitaskflow.plan.md",
+    "planJsonPath": "workflow/plans/minitaskflow.plan.json",
+    "approvalPath": "workflow/approvals/minitaskflow.approval.json",
+    "approvalStatus": "PLAN_APPROVED",
+    "postApprovalWorkStartedByThisUpdate": false,
+    "deferredUntilApproval": [
+      "architecture",
+      "architecture-contract.json",
+      "DAG",
+      "application code",
+      "Docker deployment"
+    ]
+  },
+  "currentRequirement": {
+    "receivedAt": "2026-05-18T07:18:56Z",
+    "source": "classification_request_corrected",
+    "lifecycleCase": "NEW_PROJECT",
+    "summary": "Build a small enterprise task management app for local Docker validation.",
+    "technology": {
+      "backend": "Spring Boot Java 21",
+      "frontend": "React + Vite",
+      "database": "PostgreSQL",
+      "auth": "JWT",
+      "packageManager": "npm",
+      "runtime": "Docker Compose",
+      "frontendE2E": "Playwright"
+    },
+    "suppliedModules": [
+      "users",
+      "auth",
+      "projects",
+      "tasks",
+      "dashboard",
+      "health check endpoint"
+    ],
+    "suppliedBehavior": [
+      "User can register/login.",
+      "User can create a project.",
+      "User can create tasks inside a project.",
+      "User can mark task as completed.",
+      "Dashboard shows project and task counts.",
+      "Backend exposes /api/health.",
+      "Frontend loads successfully in browser."
+    ],
+    "notes": [
+      "Corrects the initial requirement_received memory event, which omitted the supplied modules and behavior.",
+      "Do not create architecture, DAG, or application code during this correction step."
+    ]
+  },
+  "events": [
+    {
+      "timestamp": "2026-05-18T12:41:57Z",
+      "eventType": "runtime_proof_passed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "COMPLETE",
+      "summary": "Runtime proof passed: backend package/tests, frontend install/build, quality score, Docker deployment, Playwright, backend health, and frontend URL checks all passed.",
+      "phase": "runtime-proof",
+      "runtimeProofPath": "workflow/runtime-proof/minitaskflow.runtime-proof.json",
+      "backendUrl": "http://localhost:18080",
+      "frontendUrl": "http://localhost:15000"
+    },
+    {
+      "timestamp": "2026-05-18T12:41:57Z",
+      "eventType": "runtime_proof_attempted",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "COMPLETE",
+      "summary": "Runtime proof checked backend health, frontend HTTP response, quality score, Playwright result, Docker state, backend package, and frontend build evidence.",
+      "phase": "runtime-proof",
+      "runtimeProofPath": "workflow/runtime-proof/minitaskflow.runtime-proof.json"
+    },
+    {
+      "timestamp": "2026-05-18T12:41:57Z",
+      "eventType": "project_completed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "COMPLETE",
+      "summary": "MiniTaskFlow NEW_PROJECT autonomous run completed after runtime proof passed.",
+      "phase": "complete-status"
+    },
+    {
+      "timestamp": "2026-05-18T12:40:39Z",
+      "eventType": "playwright_tests_passed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "PLAYWRIGHT_PASSED",
+      "summary": "Playwright E2E tests passed against the Docker frontend URL with 3 tests and one worker.",
+      "phase": "playwright-e2e",
+      "playwrightPlanPath": "workflow/playwright/minitaskflow.playwright-plan.md",
+      "playwrightResultPath": "workflow/playwright/minitaskflow.playwright-result.json",
+      "playwrightReportPath": "workflow/playwright/minitaskflow.playwright-report.md"
+    },
+    {
+      "timestamp": "2026-05-18T12:40:15Z",
+      "eventType": "repair_succeeded",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "PLAYWRIGHT_PASSED",
+      "summary": "Repaired Playwright report paths, reran tests with browser permissions, and fixed an ambiguous Completed selector; E2E suite passed.",
+      "phase": "playwright-e2e",
+      "issueCategory": "PLAYWRIGHT_E2E_ERROR",
+      "validation": "npx playwright test --workers=1"
+    },
+    {
+      "timestamp": "2026-05-18T12:39:55Z",
+      "eventType": "playwright_tests_failed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "PLAYWRIGHT_FAILED",
+      "summary": "Initial Playwright run failed because sandboxed Chromium launch was blocked, reporter paths targeted the wrong directory, and one selector matched both dashboard and task Completed text.",
+      "phase": "playwright-e2e",
+      "issueCategory": "PLAYWRIGHT_E2E_ERROR",
+      "validation": "npx playwright test --workers=1"
+    },
+    {
+      "timestamp": "2026-05-18T12:37:20Z",
+      "eventType": "playwright_tests_created",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "PLAYWRIGHT_TESTS_CREATED",
+      "summary": "Created Playwright coverage for protected auth screen, missing Google credentials UX, registration, login, project creation, task creation, completion, and dashboard counts.",
+      "phase": "playwright-e2e",
+      "playwrightPlanPath": "workflow/playwright/minitaskflow.playwright-plan.md"
+    },
+    {
+      "timestamp": "2026-05-18T12:30:36Z",
+      "eventType": "docker_deployment_attempted",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "DOCKER_DEPLOYED",
+      "summary": "Docker Compose build and up were executed with allocated dynamic ports; backend and Postgres reached healthy state and frontend is running.",
+      "phase": "docker-deploy",
+      "deploymentEvidencePath": "workflow/deployments/minitaskflow.docker-deployment.json"
+    },
+    {
+      "timestamp": "2026-05-18T12:30:36Z",
+      "eventType": "phase_completed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "DOCKER_DEPLOYED",
+      "summary": "Docker deployment phase completed successfully.",
+      "phase": "docker-deploy",
+      "validation": "docker compose build; docker compose up -d; docker compose ps",
+      "result": "PASS",
+      "deploymentEvidencePath": "workflow/deployments/minitaskflow.docker-deployment.json"
+    },
+    {
+      "timestamp": "2026-05-18T12:29:19Z",
+      "eventType": "quality_score_passed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "QUALITY_PASSED",
+      "summary": "Code quality review passed with score 9.2 / 10, above the required 9.0 threshold.",
+      "phase": "quality-gate",
+      "qualityReportPath": "workflow/code-quality/minitaskflow.quality-report.md",
+      "qualityScorePath": "workflow/code-quality/minitaskflow.quality-score.json"
+    },
+    {
+      "timestamp": "2026-05-18T12:29:19Z",
+      "eventType": "code_quality_review_completed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "QUALITY_PASSED",
+      "summary": "Reviewed correctness, architecture alignment, type safety, security, maintainability, frontend UX, API contracts, database consistency, Docker/runtime quality, and validation evidence.",
+      "phase": "quality-gate",
+      "qualityReportPath": "workflow/code-quality/minitaskflow.quality-report.md"
+    },
+    {
+      "timestamp": "2026-05-18T12:28:42Z",
+      "eventType": "phase_completed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "DOCKER_RUNTIME_CONFIG_PASSED",
+      "summary": "Docker runtime generation completed; docker compose config passed with allocated dynamic ports and the backend jar was packaged for Docker build.",
+      "phase": "docker-runtime",
+      "validation": "docker compose config; mvn package -DskipTests",
+      "result": "PASS",
+      "portRegistryPath": "runtime/port-registry.json"
+    },
+    {
+      "timestamp": "2026-05-18T12:28:10Z",
+      "eventType": "phase_started",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "DOCKER_RUNTIME_IN_PROGRESS",
+      "summary": "Docker runtime phase started; allocated dynamic backend, frontend, and Postgres host ports from the approved ranges and moved runtime secrets to environment-sourced Compose variables.",
+      "phase": "docker-runtime",
+      "portRegistryPath": "runtime/port-registry.json"
+    },
+    {
+      "timestamp": "2026-05-18T12:27:10Z",
+      "eventType": "phase_completed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "FRONTEND_VALIDATION_PASSED",
+      "summary": "Frontend generation completed with typed API contracts, Google-login disabled configuration state, auth Playwright hooks, and passing npm install/build validation.",
+      "phase": "frontend-app",
+      "validation": "npm install; npm run build",
+      "result": "PASS"
+    },
+    {
+      "timestamp": "2026-05-18T12:26:31Z",
+      "eventType": "repair_succeeded",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "FRONTEND_VALIDATION_PASSED",
+      "summary": "Repaired frontend TypeScript build by updating moduleResolution to Bundler and adding Vite environment declarations.",
+      "phase": "frontend-app",
+      "issueCategory": "FRONTEND_BUILD_ERROR",
+      "validation": "npm run build"
+    },
+    {
+      "timestamp": "2026-05-18T12:26:31Z",
+      "eventType": "repair_attempted",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "FRONTEND_BUILD_REPAIR",
+      "summary": "Applied targeted TypeScript configuration and Vite declaration repair after npm run build failed.",
+      "phase": "frontend-app",
+      "issueCategory": "FRONTEND_BUILD_ERROR",
+      "validation": "npm run build"
+    },
+    {
+      "timestamp": "2026-05-18T12:25:54Z",
+      "eventType": "validation_failed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "FRONTEND_BUILD_FAILED",
+      "summary": "npm run build failed on TypeScript moduleResolution deprecation and missing Vite import.meta/CSS declarations.",
+      "phase": "frontend-app",
+      "issueCategory": "FRONTEND_BUILD_ERROR",
+      "validation": "npm run build"
+    },
+    {
+      "timestamp": "2026-05-18T12:18:04Z",
+      "eventType": "phase_completed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "BACKEND_VALIDATION_PASSED",
+      "summary": "Backend generation completed with local password auth, Google auth entrypoint, JWT issuer/role/token-type claims, configured CORS, owner authorization, security tests, and passing Maven validation.",
+      "phase": "backend-auth-users-security",
+      "validation": "mvn test",
+      "result": "PASS",
+      "testsRun": 6
+    },
+    {
+      "timestamp": "2026-05-18T12:17:43Z",
+      "eventType": "repair_succeeded",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "BACKEND_VALIDATION_PASSED",
+      "summary": "Reran Maven validation outside the sandbox after Mockito Byte Buddy attach failed in the sandbox; exact validation passed without code changes.",
+      "phase": "backend-auth-users-security",
+      "issueCategory": "UNKNOWN_REPAIRABLE_ERROR",
+      "repairType": "validation_environment_rerun",
+      "validation": "mvn test"
+    },
+    {
+      "timestamp": "2026-05-18T12:17:43Z",
+      "eventType": "repair_attempted",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "BACKEND_VALIDATION_RETRY",
+      "summary": "Retried the exact backend validation outside the sandbox because Mockito Byte Buddy self-attach was blocked by the sandbox environment.",
+      "phase": "backend-auth-users-security",
+      "issueCategory": "UNKNOWN_REPAIRABLE_ERROR",
+      "validation": "mvn test"
+    },
+    {
+      "timestamp": "2026-05-18T12:17:43Z",
+      "eventType": "validation_failed",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "BACKEND_VALIDATION_FAILED_ENVIRONMENT",
+      "summary": "Sandboxed Maven run failed because Mockito Byte Buddy could not self-attach to the JVM; this was an execution environment failure, not a backend code failure.",
+      "phase": "backend-auth-users-security",
+      "issueCategory": "UNKNOWN_REPAIRABLE_ERROR",
+      "validation": "mvn test"
+    },
+    {
+      "timestamp": "2026-05-18T12:10:41Z",
+      "eventType": "phase_started",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "BACKEND_PHASE_IN_PROGRESS",
+      "summary": "phase_runner_agent resumed after approved plan, architecture, and DAG; backend generation is continuing with the mandatory security baseline.",
+      "phase": "backend-auth-users-security",
+      "architectureContractPath": "runtime/workspaces/minitaskflow/architecture-contract.json"
+    },
+    {
+      "timestamp": "2026-05-18T09:25:55Z",
+      "eventType": "dag_created",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "DAG_CREATED",
+      "summary": "Created MiniTaskFlow autonomous phase DAG after architecture contract creation.",
+      "dagMarkdownPath": "workflow/dags/minitaskflow.dag.md",
+      "dagJsonPath": "workflow/dags/minitaskflow.dag.json",
+      "nextAgent": "phase_runner_agent"
+    },
+    {
+      "timestamp": "2026-05-18T09:25:55Z",
+      "eventType": "architecture_created",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "ARCHITECTURE_CREATED",
+      "summary": "Created MiniTaskFlow architecture and architecture contract with Java 21, Long user IDs, npm, PostgreSQL, and JWT.",
+      "architectureMarkdownPath": "workflow/architecture/minitaskflow.architecture.md",
+      "architectureJsonPath": "workflow/architecture/minitaskflow.architecture.json",
+      "architectureContractPath": "runtime/workspaces/minitaskflow/architecture-contract.json"
+    },
+    {
+      "timestamp": "2026-05-18T07:35:10Z",
+      "eventType": "plan_approved",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "PLAN_APPROVED",
+      "summary": "Human approved the MiniTaskFlow plan. Approval/status records were updated and post-approval autonomous workflow is cleared to continue with architecture_agent.",
+      "planMarkdownPath": "workflow/plans/minitaskflow.plan.md",
+      "planJsonPath": "workflow/plans/minitaskflow.plan.json",
+      "approvalPath": "workflow/approvals/minitaskflow.approval.json",
+      "nextAgentAfterApproval": "architecture_agent",
+      "postApprovalWorkStartedByThisUpdate": false,
+      "deferredWorkNotStartedInThisUpdate": [
+        "architecture",
+        "architecture-contract.json",
+        "DAG",
+        "application code",
+        "Docker deployment"
+      ]
+    },
+    {
+      "timestamp": "2026-05-18T07:22:06Z",
+      "eventType": "plan_created",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "PLAN_CREATED_PENDING_HUMAN_APPROVAL",
+      "summary": "Created human approval plan for MiniTaskFlow and stopped before architecture, DAG, or application code.",
+      "planMarkdownPath": "workflow/plans/minitaskflow.plan.md",
+      "planJsonPath": "workflow/plans/minitaskflow.plan.json",
+      "approvalPath": "workflow/approvals/minitaskflow.approval.json",
+      "requiresHumanApproval": true,
+      "nextAgentAfterApproval": "architecture_agent",
+      "deferredWork": [
+        "architecture",
+        "architecture-contract.json",
+        "DAG",
+        "application code",
+        "Docker deployment"
+      ]
+    },
+    {
+      "timestamp": "2026-05-18T07:18:56Z",
+      "eventType": "requirement_received",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "CLASSIFIED_ONLY",
+      "summary": "Received detailed MiniTaskFlow app requirement for lifecycle classification only.",
+      "technology": {
+        "backend": "Spring Boot Java 21",
+        "frontend": "React + Vite",
+        "database": "PostgreSQL",
+        "auth": "JWT",
+        "packageManager": "npm",
+        "runtime": "Docker Compose",
+        "frontendE2E": "Playwright"
+      },
+      "suppliedModules": [
+        "users",
+        "auth",
+        "projects",
+        "tasks",
+        "dashboard",
+        "health check endpoint"
+      ],
+      "suppliedBehavior": [
+        "User can register/login.",
+        "User can create a project.",
+        "User can create tasks inside a project.",
+        "User can mark task as completed.",
+        "Dashboard shows project and task counts.",
+        "Backend exposes /api/health.",
+        "Frontend loads successfully in browser."
+      ],
+      "notes": [
+        "Architecture, DAG, and application code creation were explicitly deferred."
+      ]
+    },
+    {
+      "timestamp": "2026-05-18T07:17:28Z",
+      "eventType": "requirement_received",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "REQUIREMENT_RECEIVED",
+      "summary": "Received NEW_PROJECT factory start request for MiniTaskFlow: build a small enterprise task management app for local Docker validation.",
+      "technology": {
+        "backend": "Spring Boot Java 21",
+        "frontend": "React + Vite",
+        "database": "PostgreSQL",
+        "auth": "JWT",
+        "packageManager": "npm",
+        "runtime": "Docker Compose",
+        "frontendE2E": "Playwright"
+      },
+      "suppliedModules": [
+        "users",
+        "auth",
+        "projects",
+        "tasks",
+        "dashboard",
+        "health check endpoint"
+      ],
+      "suppliedBehavior": [
+        "User can register/login.",
+        "User can create a project.",
+        "User can create tasks inside a project.",
+        "User can mark task as completed.",
+        "Dashboard shows project and task counts.",
+        "Backend exposes /api/health.",
+        "Frontend loads successfully in browser."
+      ],
+      "correctedAt": "2026-05-18T07:19:22Z",
+      "correctionReason": "Initial durable memory event omitted the supplied modules and behavior."
+    },
+    {
+      "timestamp": "2026-05-18T07:19:22Z",
+      "eventType": "requirement_received_corrected",
+      "lifecycleCase": "NEW_PROJECT",
+      "status": "REQUIREMENT_RECEIVED",
+      "summary": "Corrected durable requirement memory to include the full MiniTaskFlow technology stack, required modules, and required behavior.",
+      "correctedEventTimestamp": "2026-05-18T07:17:28Z",
+      "technology": {
+        "backend": "Spring Boot Java 21",
+        "frontend": "React + Vite",
+        "database": "PostgreSQL",
+        "auth": "JWT",
+        "packageManager": "npm",
+        "runtime": "Docker Compose",
+        "frontendE2E": "Playwright"
+      },
+      "suppliedModules": [
+        "users",
+        "auth",
+        "projects",
+        "tasks",
+        "dashboard",
+        "health check endpoint"
+      ],
+      "suppliedBehavior": [
+        "User can register/login.",
+        "User can create a project.",
+        "User can create tasks inside a project.",
+        "User can mark task as completed.",
+        "Dashboard shows project and task counts.",
+        "Backend exposes /api/health.",
+        "Frontend loads successfully in browser."
+      ],
+      "deferredWork": [
+        "architecture",
+        "DAG",
+        "application code"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+name = "regression_validation_agent"
+description = "Runs regression checks after feature additions or functionality changes."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Run for ADD_FEATURE and CHANGE_FUNCTIONALITY.
+
+Before regression:
+- read project memory
+- read impact analysis
+- read change plan
+- read architecture contract
+- read latest runtime proof
+- read latest Playwright history
+
+Checks:
+- backend compile/package
+- backend tests if present
+- frontend build
+- frontend tests if present
+- Playwright smoke tests
+- Playwright affected-flow tests
+- API compatibility
+- ID type consistency
+- database migration compatibility
+- Docker compose config
+- existing backend health endpoint
+- existing frontend critical routes
+- previously proven critical flows from memory
+
+If regression fails:
+- write workflow/regression/<project-slug>.<timestamp>.regression-failure.json
+- classify issue
+- call self_healing_agent
+- rerun regression after repair
+
+If regression passes:
+- write workflow/regression/<project-slug>.<timestamp>.regression-passed.json
+- call memory_agent
+
+Do not mark COMPLETE.
+"""

@@ -1,0 +1,61 @@
+name = "validation_agent"
+description = "Validates every phase and routes failures to self-healing."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Validate after every phase.
+
+Backend checks:
+- Maven compile/package if backend changed
+- backend tests if present
+- Java type consistency
+- entity/repository/DTO ID consistency
+- JWT subject type consistency
+- migration/schema consistency
+- health endpoint existence
+
+Frontend checks:
+- package install result
+- node_modules existence
+- package manager consistency
+- type check if configured
+- frontend tests if present
+- frontend build
+- frontend/backend API type consistency
+
+Docker checks:
+- backend/Dockerfile exists
+- frontend/Dockerfile exists
+- docker-compose.yml exists
+- docker compose config passes
+- Docker Java version matches Maven compiler release
+- no hardcoded conflicting host ports
+
+Feature/change checks:
+- impact analysis exists
+- changed behavior validation exists
+- regression plan exists
+
+If validation fails:
+- classify issue
+- write failure report with command, exit code, and error signature
+- call memory_agent
+- call self_healing_agent
+- block next phase until repaired and revalidated
+"""
+
+# Security validation extension
+# For every security-related phase, validate:
+# - password hashing is configured
+# - plaintext password storage is absent
+# - JWT secret is read from env/config, not hardcoded
+# - JWT subject type matches architecture contract
+# - protected endpoints reject unauthenticated requests
+# - cross-owner access is rejected
+# - /api/health remains public
+# - Google auth config is environment-driven
+# - Google identity uses googleSub/sub as provider identity
+# - Google client secret is not committed
+# - backend auth tests exist and pass
+# - frontend auth flow is covered by Playwright
+#
+# If any security check fails, classify and call self_healing_agent.

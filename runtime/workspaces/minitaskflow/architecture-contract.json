@@ -1,0 +1,24 @@
+{
+  "projectName": "MiniTaskFlow",
+  "projectSlug": "minitaskflow",
+  "userIdType": "Long",
+  "javaVersion": 21,
+  "packageManager": "npm",
+  "database": "postgres",
+  "authStrategy": "jwt",
+  "backend": {
+    "framework": "Spring Boot",
+    "buildTool": "Maven",
+    "basePackage": "com.minitaskflow"
+  },
+  "frontend": {
+    "framework": "React",
+    "buildTool": "Vite",
+    "packageManager": "npm"
+  },
+  "runtime": {
+    "orchestrator": "Docker Compose",
+    "dynamicPorts": true,
+    "portRegistryPath": "runtime/port-registry.json"
+  }
+}

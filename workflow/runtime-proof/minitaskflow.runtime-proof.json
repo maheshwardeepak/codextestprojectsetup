@@ -1,0 +1,46 @@
+{
+  "projectName": "MiniTaskFlow",
+  "projectSlug": "minitaskflow",
+  "status": "COMPLETE",
+  "provedAt": "2026-05-18T12:41:57Z",
+  "backend": {
+    "compileAndPackage": "PASS",
+    "tests": "PASS",
+    "healthUrl": "http://localhost:18080/api/health",
+    "healthResult": {
+      "status": "UP",
+      "service": "minitaskflow-backend"
+    }
+  },
+  "frontend": {
+    "install": "PASS",
+    "build": "PASS",
+    "url": "http://localhost:15000",
+    "httpStatus": 200
+  },
+  "quality": {
+    "score": 9.2,
+    "minimumRequiredScore": 9.0,
+    "result": "PASS",
+    "scorePath": "workflow/code-quality/minitaskflow.quality-score.json"
+  },
+  "docker": {
+    "composeConfig": "PASS",
+    "build": "PASS",
+    "up": "PASS",
+    "ps": "PASS",
+    "deploymentEvidencePath": "workflow/deployments/minitaskflow.docker-deployment.json",
+    "ports": {
+      "backend": 18080,
+      "frontend": 15000,
+      "postgres": 55432
+    }
+  },
+  "playwright": {
+    "result": "PASS",
+    "tests": 3,
+    "unexpected": 0,
+    "resultPath": "workflow/playwright/minitaskflow.playwright-result.json",
+    "reportPath": "workflow/playwright/minitaskflow.playwright-report.md"
+  }
+}
